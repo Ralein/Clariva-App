@@ -26,6 +26,7 @@ interface Toast {
 }
 
 const FEATURES = [
+  { id: 'Translate', label: 'Translate', icon: Globe, isDropdown: true },
   { id: 'Rephrase', label: 'Rephrase', icon: Sparkles },
   { id: 'Concise', label: 'Concise', icon: ArrowRight },
   { id: 'Professional', label: 'Professional', icon: Sparkles },
@@ -36,7 +37,6 @@ const FEATURES = [
   { id: 'Style: Empathetic', label: 'Empathetic Style', icon: Sparkles },
   { id: 'Style: Direct', label: 'Direct Style', icon: Sparkles },
   { id: 'Style: Storytelling', label: 'Storytelling', icon: Sparkles },
-  { id: 'Translate', label: 'Translate', icon: Globe, isDropdown: true },
 ];
 
 export default function Home() {

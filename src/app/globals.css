@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
-
 :root {
   --font-family: 'Outfit', sans-serif;
   --bg-gradient: radial-gradient(circle at top left, #0b1120, #020617, #090d16);
@@ -28,7 +26,6 @@
 }
 
 body {
-  font-family: var(--font-family);
   background: var(--bg-gradient);
   color: var(--text-primary);
   min-height: 100vh;
