@@ -28,10 +28,10 @@ interface Toast {
 const FEATURES = [
   { id: 'Translate', label: 'Translate', icon: Globe, isDropdown: true },
   { id: 'Grammar', label: 'Fix Grammar', icon: Sparkles },
-  { id: 'Rephrase', label: 'Rephrase', icon: Sparkles },
   { id: 'Concise', label: 'Concise', icon: ArrowRight },
   { id: 'Professional', label: 'Professional', icon: Sparkles },
   { id: 'Polite', label: 'Polite / Friendly', icon: Sparkles },
+  { id: 'Rephrase', label: 'Rephrase', icon: Sparkles },
   { id: 'Style: Witty', label: 'Witty Style', icon: Sparkles },
   { id: 'Style: Assertive', label: 'Assertive Style', icon: Sparkles },
   { id: 'Style: Empathetic', label: 'Empathetic Style', icon: Sparkles },
