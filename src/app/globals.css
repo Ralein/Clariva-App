@@ -131,6 +131,7 @@ body::after {
   font-weight: 700;
   background: linear-gradient(to right, #ffffff, #c7d2fe);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.025em;
 }
@@ -671,6 +672,31 @@ body::after {
 
 .scroll-indicator.right {
   right: -10px;
+}
+
+.install-app-btn {
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  color: #a5b4fc;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.45rem 0.9rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.install-app-btn:hover {
+  background: rgba(99, 102, 241, 0.25);
+  border-color: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.3);
+  transform: translateY(-1px);
 }
 
 /* Responsive Overrides */

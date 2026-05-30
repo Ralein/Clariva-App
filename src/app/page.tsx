@@ -15,7 +15,8 @@ import {
   Sparkles, 
   ArrowRight,
   Globe,
-  ChevronDown
+  ChevronDown,
+  Download
 } from 'lucide-react';
 
 interface Toast {
@@ -54,6 +55,10 @@ export default function Home() {
 
   // Toasts
   const [toasts, setToasts] = useState<Toast[]>([]);
+
+  // PWA Install States
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [isInstallable, setIsInstallable] = useState(false);
 
   // Web Speech API Refs
   const recognitionRef = useRef<any>(null);
@@ -110,6 +115,73 @@ export default function Home() {
   useEffect(() => {
     stopSpeech();
   }, [outputText]);
+
+  // Register Service Worker and PWA Install Handler
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Register Service Worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').then(
+            (registration) => {
+              console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            },
+            (err) => {
+              console.log('ServiceWorker registration failed: ', err);
+            }
+          );
+        });
+      }
+
+      // Listen for beforeinstallprompt event
+      const handleBeforeInstallPrompt = (e: any) => {
+        e.preventDefault();
+        setDeferredPrompt(e);
+        setIsInstallable(true);
+      };
+
+      window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+      // Listen for appinstalled event
+      const handleAppInstalled = () => {
+        setIsInstallable(false);
+        setDeferredPrompt(null);
+        showToast('App installed successfully!', 'success');
+      };
+
+      window.addEventListener('appinstalled', handleAppInstalled);
+
+      return () => {
+        window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+        window.removeEventListener('appinstalled', handleAppInstalled);
+      };
+    }
+  }, []);
+
+  const handleInstallApp = async () => {
+    if (!deferredPrompt) {
+      const isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
+      if (isIOS) {
+        showToast('iOS Install: Tap Share, then "Add to Home Screen".', 'success');
+      } else {
+        showToast('To install, open your browser menu and choose "Add to Home Screen".', 'success');
+      }
+      return;
+    }
+    
+    try {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        showToast('Thank you for installing Clariva!', 'success');
+      }
+      setDeferredPrompt(null);
+      setIsInstallable(false);
+    } catch (err) {
+      console.error(err);
+      showToast('Install failed or canceled.', 'error');
+    }
+  };
 
   // Speech to Text Trigger
   const toggleRecording = () => {
@@ -310,6 +382,10 @@ export default function Home() {
             </div>
             <h1 className="brand-name">Clariva</h1>
           </div>
+          <button className="install-app-btn" onClick={handleInstallApp} type="button">
+            <Download size={14} />
+            <span>Install App</span>
+          </button>
         </div>
 
         {/* ZONE 1: Input Area */}
