@@ -306,7 +306,7 @@ export default function Home() {
         <div className="app-header">
           <div className="brand-wrapper">
             <div className="brand-icon">
-              <Sparkles size={20} className="text-white" />
+              <img src="/logo.png" alt="Clariva Logo" className="brand-logo-img" />
             </div>
             <h1 className="brand-name">Clariva</h1>
           </div>
